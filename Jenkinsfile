@@ -1,5 +1,6 @@
 node {
 	checkout scm
+	withEnv([VOLUME = '$(pwd)/sources:/src',IMAGE = 'cdrx/pyinstaller-linux:python2'])
     stage('Build') {
         docker.image('python:3.10.7-alpine').inside {
             'python -m py_compile sources/add2vals.py sources/calc.py'
@@ -18,10 +19,9 @@ node {
             }
         }
     }
-    
     stage('Deliver') {
-    	docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''").withEnv([VOLUME = '$(pwd)/sources:/src',IMAGE = 'cdrx/pyinstaller-linux:python2'])  {
-            	sh 'docker run --rm -v ${VOLUME} ${IMAGE} "pyinstaller -F add2vals.py"'
-    	}
+    	docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
+            sh 'docker run --rm -v ${VOLUME} ${IMAGE} "pyinstaller -F add2vals.py"'
+        }
     }
 }
