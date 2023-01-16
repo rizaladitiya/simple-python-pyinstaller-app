@@ -24,6 +24,9 @@ node {
             echo "Database engine is ${DB_ENGINE}"
             echo "DISABLE_AUTH is ${DISABLE_AUTH}"
             sh 'printenv'
+            docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
+            	sh 'pyinstaller --onefile sources/add2vals.py'
+        	}
         }
     }
 }
