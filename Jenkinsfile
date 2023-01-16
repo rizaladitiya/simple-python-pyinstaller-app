@@ -20,9 +20,7 @@ node {
     }
     stage('Deliver') {
     	docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
-			withEnv([VOLUME = '$(pwd)/sources:/src',IMAGE = 'cdrx/pyinstaller-linux:python2']){
             	sh 'pwd'
-            }
         }
     }
 }
