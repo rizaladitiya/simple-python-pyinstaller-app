@@ -29,7 +29,6 @@ node {
             sh 'printenv'
             docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
             	dir(path: env.BUILD_ID) { 
-                    unstash(name: 'compiled-results') 
                     sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'" 
                 }
         	}
