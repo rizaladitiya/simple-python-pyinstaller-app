@@ -19,17 +19,10 @@ node {
         }
     }
     withEnv(['DISABLE_AUTH=true',
-             'DB_ENGINE=sqlite']) {
-        stage('Build') {
-            echo "Database engine is ${DB_ENGINE}"
+             'DB_ENGINE=sqlite'])
+    stage('Deliver') {
+    	  echo "Database engine is ${DB_ENGINE}"
             echo "DISABLE_AUTH is ${DISABLE_AUTH}"
             sh 'printenv'
-        }
-    }
-    stage('Deliver') {
-    	  withEnv(["USER_PSD=secret", "USER_ID_ADMIN=false"]) {
-      		echo "USER_PSD = ${USER_PSD}"
-      		sh 'USER_ID_ADMIN = $USER_ID_ADMIN'
-  		}
     }
 }
