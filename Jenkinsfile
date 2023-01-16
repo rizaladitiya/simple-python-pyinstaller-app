@@ -20,8 +20,8 @@ node {
     }
     withEnv(['DISABLE_AUTH=true',
              'DB_ENGINE=sqlite',
-              'VOLUME = "$(pwd)/sources:/src"',
-               'IMAGE = "cdrx/pyinstaller-linux:python2"']) {
+              'VOLUME=$(pwd)/sources:/src',
+               'IMAGE=cdrx/pyinstaller-linux:python2']) {
         stage('Deliver') {
             echo "Database engine is ${DB_ENGINE}"
             echo "DISABLE_AUTH is ${DISABLE_AUTH}"
