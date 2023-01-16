@@ -20,7 +20,7 @@ node {
     }
     stage('Deliver') {
     	docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
-            	sh 'pwd'
+            	sh "docker run --rm -v /var/jenkins_home/workspace/submission-cicd-pipeline-rizaladitiya/sources:/src cdrx/pyinstaller-linux:python2 'pyinstaller -F add2vals.py'"
         }
     }
 }
