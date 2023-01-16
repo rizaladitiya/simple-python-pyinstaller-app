@@ -19,7 +19,7 @@ node {
         }
     }
     stage('Deliver') {
-    	docker.image('python:2-alpine').inside  {
+    	docker.image('python:3.10.7-alpine').inside  {
             sh 'pyinstaller --onefile sources/add2vals.py'
         }
     }
