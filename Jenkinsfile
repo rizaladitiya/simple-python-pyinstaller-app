@@ -19,8 +19,9 @@ node {
         }
     }
     stage('Deliver') {
-    	docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
-            	sh "docker run --rm -v /var/jenkins_home/workspace/submission-cicd-pipeline-rizaladitiya/sources:/src cdrx/pyinstaller-linux:python2 'pyinstaller -F add2vals.py'"
-        }
+    	  withEnv(["USER_PSD=secret", "USER_ID_ADMIN=false"]) {
+      		echo "USER_PSD = ${USER_PSD}"
+      		sh 'USER_ID_ADMIN = $USER_ID_ADMIN'
+  		}
     }
 }
