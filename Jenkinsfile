@@ -1,7 +1,7 @@
 node {
 	checkout scm
     stage('Build') {
-        docker.image('python:3.10.7-alpine').inside {
+        docker.image('python:2-alpine').inside {
             'python -m py_compile sources/add2vals.py sources/calc.py'
         }
     }
@@ -18,18 +18,14 @@ node {
             }
         }
     }
-    withEnv(['DISABLE_AUTH=true',
-             'DB_ENGINE=sqlite',
+    withEnv([
               'VOLUME=$(pwd)/sources:/src',
-               'IMAGE=cdrx/pyinstaller-linux:python2']) {
+               'IMAGE=cdrx/pyinstaller-linux:python2']).inside {
         stage('Deliver') {
-            echo "Database engine is ${DB_ENGINE}"
-            echo "DISABLE_AUTH is ${DISABLE_AUTH}"
-            echo "${VOLUME}"
             sh 'printenv'
-            docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
+            docker.image('python:2-alpine') {
             	dir(path: env.BUILD_ID) { 
-                    sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'" 
+                    sh "pip install pyinstaller && pyinstaller sources/add2vals.py" 
                 }
         	}
         }
