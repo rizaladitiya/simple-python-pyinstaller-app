@@ -20,7 +20,7 @@ node {
     }
     stage('Deliver') {
     	checkout scm
-        docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
+        docker.image('cdrx/pyinstaller-linux:python2')  {
                 sh "ls -al"             
         }
     }
