@@ -1,7 +1,7 @@
 node {
 	checkout scm
     stage('Build') {
-        docker.image('python:2-alpine').inside {
+        docker.image('python:3.10.7-alpine').inside {
             'python -m py_compile sources/add2vals.py sources/calc.py'
         }
     }
@@ -18,12 +18,17 @@ node {
             }
         }
     }
-    stage('Deliver') {
-        sh 'printenv'
-        docker.image('python:2-alpine').inside  {
-                sh "pip install pyinstaller" 
-            
+    withEnv(['DISABLE_AUTH=true',
+             'DB_ENGINE=sqlite',
+              'VOLUME=$(pwd)/sources:/src',
+               'IMAGE=cdrx/pyinstaller-linux:python2']) {
+        stage('Deliver') {
+            sh 'printenv'
+            docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
+            	
+                    sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'" 
+                
+        	}
         }
     }
-    
 }
