@@ -21,7 +21,7 @@ node {
     stage('Deliver') {
         sh 'printenv'
         docker.image('python:2-alpine').inside  {
-                sh "pip install pyinstaller && pyinstaller sources/add2vals.py" 
+                sh "pip install pyinstaller" 
             
         }
     }
