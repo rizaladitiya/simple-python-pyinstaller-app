@@ -19,8 +19,9 @@ node {
         }
     }
     stage('Deliver') {
+    	checkout scm
         docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
-                sh "pip install pyinstaller"             
+                sh "ls -al"             
         }
     }
     
