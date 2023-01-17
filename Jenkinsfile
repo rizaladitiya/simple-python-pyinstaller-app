@@ -18,18 +18,11 @@ node {
             }
         }
     }
-    withEnv(['DISABLE_AUTH=true',
-             'DB_ENGINE=sqlite',
-              'VOLUME=$(pwd)/sources:/src',
-               'IMAGE=cdrx/pyinstaller-linux:python2']) {
-        stage('Deliver') {
-            sh 'printenv'
-            docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
-            		sh "python -h"
-                    sh "python -m PyInstaller -F add2vals.py" 
-                   
-                
-        	}
+    stage('Deliver') {
+        docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
+            	sh "python -h"
+                sh "python -m PyInstaller2 -F add2vals.py"             
         }
     }
+    
 }
