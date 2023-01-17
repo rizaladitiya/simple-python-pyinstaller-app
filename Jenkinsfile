@@ -19,9 +19,18 @@ node {
         }
     }
     stage('Deliver') {
-    	checkout scm
         docker.image('six8/pyinstaller-alpine-linux-amd64:alpine-3.12-python-2.7-pyinstaller-v3.4').inside("--entrypoint=''")  {
-                sh "pyinstaller -F sources/add2vals.py"             
+        	try {
+            		sh "pyinstaller -F sources/add2vals.py"           
+            	} catch (Exception e) {
+                echo 'Error: ' + e.toString()
+            } finally {
+                success {
+                    archiveArtifacts 'distadd2vals'
+                    sh "rm -rf build dist"
+                    sleep 1
+                }
+            }
         }
     }
     
