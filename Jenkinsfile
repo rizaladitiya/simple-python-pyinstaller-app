@@ -20,8 +20,7 @@ node {
     }
     stage('Deliver') {
         docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
-            	sh "python -h"
-                sh "python -m PyInstaller2 -F add2vals.py"             
+                sh "python -m PyInstaller -F add2vals.py"             
         }
     }
     
