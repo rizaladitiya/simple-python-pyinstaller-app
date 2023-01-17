@@ -18,16 +18,12 @@ node {
             }
         }
     }
-    withEnv([
-              'VOLUME=$(pwd)/sources:/src',
-               'IMAGE=cdrx/pyinstaller-linux:python2']).inside {
-        stage('Deliver') {
-            sh 'printenv'
-            docker.image('python:2-alpine') {
-            	dir(path: env.BUILD_ID) { 
-                    sh "pip install pyinstaller && pyinstaller sources/add2vals.py" 
-                }
-        	}
+    stage('Deliver') {
+        sh 'printenv'
+        docker.image('python:2-alpine').inside  {
+                sh "pip install pyinstaller && pyinstaller sources/add2vals.py" 
+            
         }
     }
+    
 }
