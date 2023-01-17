@@ -21,7 +21,7 @@ node {
     stage('Deliver') {
     	checkout scm
         docker.image('six8/pyinstaller-alpine-linux-amd64:alpine-3.12-python-2.7-pyinstaller-v3.4').inside  {
-                sh "pyinstaller"             
+                sh "pyinstaller -F add2vals.py"             
         }
     }
     
