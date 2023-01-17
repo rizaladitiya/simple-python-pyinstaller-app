@@ -26,7 +26,7 @@ node {
             sh 'printenv'
             docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
             	
-                    sh "pyinstaller -F add2vals.py" 
+                    sh "python -m PyInstaller -F add2vals.py" 
                 
         	}
         }
