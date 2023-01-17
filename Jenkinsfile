@@ -20,7 +20,7 @@ node {
     }
     stage('Deliver') {
         docker.image('cdrx/pyinstaller-linux:python2').inside("--entrypoint=''")  {
-                sh "docker -v"             
+                sh "find . | grep pyinstaller"             
         }
     }
     
