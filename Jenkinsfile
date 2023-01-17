@@ -25,8 +25,8 @@ node {
             	} catch (Exception e) {
                 echo 'Error: ' + e.toString()
             } finally {
-                success {
-                    archiveArtifacts 'distadd2vals'
+                always {
+                    archiveArtifacts 'dist/add2vals'
                     sh "rm -rf build dist"
                     sleep 1
                 }
