@@ -14,7 +14,8 @@ node {
             } finally {
                 always {
                     junit 'test-reports/results.xml'
-                }
+                }                
+                input message: 'Lanjutkan ke tahap Deploy? (Click "Proceed" to continue)'
             }
         }
     }
@@ -28,7 +29,7 @@ node {
                 always {
                     archiveArtifacts 'dist/add2vals'
                     sh "rm -rf build dist"
-                    sleep 1
+                    sleep 60
                 }
             }
         }
