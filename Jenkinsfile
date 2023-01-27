@@ -15,9 +15,11 @@ node {
                 always {
                     junit 'test-reports/results.xml'
                 }                
-                input message: 'Lanjutkan ke tahap Deploy? (Click "Proceed" to continue)'
             }
         }
+    }
+    stage('Manual Approval'){
+           input message: 'Lanjutkan ke tahap Deploy? (Click "Proceed" to continue)'
     }
     stage('Deploy') {
         docker.image('six8/pyinstaller-alpine-linux-amd64:alpine-3.12-python-2.7-pyinstaller-v3.4').inside("--entrypoint=''")  {
